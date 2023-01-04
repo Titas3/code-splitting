@@ -1,23 +1,36 @@
-import logo from './logo.svg';
+
+import React from 'react';
 import './App.css';
+import HomeNew from './home';
+
+const HomePage = React.lazy(() => import("./home"))
 
 function App() {
+  const [comp, setComp] = React.useState("Before Load");
+//   React.useEffect(function(){
+// setTimeout(function(){
+//   const loadHomeComp = async function(){
+//     const resp = await import("./home");
+
+//     setComp(resp.Home);
+//   }
+//   loadHomeComp();
+// },2000)
+//   },[])
+
+const onBtnClick = function(){
+  setComp( 
+    <React.Suspense>
+    <HomePage/>
+    </React.Suspense>
+  );
+}
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      Hello Titas
+      <HomeNew/>
+      <button onClick={onBtnClick}> Go to Home</button>
+     <div>{comp}</div> 
     </div>
   );
 }
